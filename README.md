@@ -49,7 +49,7 @@ The underlying IPAs/APKs, decrypted proprietary source, and raw logs are **not d
 
 ## Reproducibility
 
-A researcher with a lawfully obtained copy of the relevant artifacts can compare SHA-256 values using [tools/verify_hashes.py](tools/verify_hashes.py) and then locate the methods listed in the source map. The method descriptions deliberately distinguish **embedded files**, **live runtime captures**, and **later-retrieved CDN content**.
+A researcher with a lawfully obtained copy of the relevant artifacts can compare SHA-256 values using [tools/verify_hashes.py](tools/verify_hashes.py) and then locate the methods listed in the source map. The method descriptions deliberately distinguish **embedded files**, **live runtime captures**, and **later-retrieved CDN content**. Optional [Ghidra exploration scripts](tools/ghidra/README.md) are retained as supplemental methodology, not primary evidence.
 
 This investigation was assisted by ChatGPT/Daybreak for reverse engineering and inspection. Reported findings were cross-checked against the files listed in the evidence map. The original [Ayoships investigation](https://ayoships.com/breakdowns/block-blast) motivated this independently reproduced analysis; it is not a claim of first discovery. See [references](references.md).
 
