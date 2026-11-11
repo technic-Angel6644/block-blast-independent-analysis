@@ -24,6 +24,10 @@ An embedded mapping, a CDN URL, a successful later download, and an instrumented
 
 Earlier in the investigation, a separate Android runtime capture recovered RewardHighValueAdHarvestTrait as 15,616 bytes with SHA-256 **f94a5d54d7f6ab0af097f408bda09b091e7767b17749f8ba828b41b638b330ad**. The current Android 10.8.1 archive includes the 700f5 registry reference and runtime read evidence, but does **not** contain the 700f5 plaintext among its retained loader-return captures. Therefore the source map does not falsely label that earlier plaintext as a file in the 10.8.1 archive.
 
+### Supplementary research tooling
+
+The separately supplied `analysis.tar(1).gz` contains research scripts rather than application payloads. Its identity, review scope, capture assumptions, and Android version-loop limitations are recorded in [analysis-tooling.md](analysis-tooling.md). A [key-parameterized HEK decoder](../tools/hek/README.md) adapts its decoder implementation. Synthetic decoder tests do not add application captures or change the evidence classifications above.
+
 ### Integrity verification
 
 Run the independent SHA-256 script described in tools/verify_hashes.py against private copies of the same three top-level artifacts. The reported checksums were recalculated from the uploaded archives before publication; matching them establishes file identity, **not** chain-of-custody beyond the investigator's possession.

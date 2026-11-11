@@ -29,12 +29,14 @@ A file may qualify for multiple labels, but one does not imply another. In parti
 
 The investigated HEK asset formats were identified as:
 
-- Type 03: a short HEK header, repeating XOR transform, with optional gzip.
-- Type 01: HEK header, 16-byte-key XXTEA transform, a recognized compression wrapper and Brotli decompression.
+- Type 03: an eight-byte HEK header, repeating XOR transform, with optional gzip.
+- Type 01: the same header, 16-byte-key XXTEA transform over little-endian words, and a validated trailing plaintext-length word. Decoded data beginning with `af fa` has a four-byte big-endian decompressed size followed by Brotli data; other decoded data is returned directly.
 
 The approach was checked by comparing independently decoded bytes with known runtime plaintext and with the separately recovered source archive.
 
-This repository does not include the game's decryption key, full proprietary decoder, protected bundled assets, or decrypted commercial source. Method descriptions are provided to explain validation and support appropriate independent review without redistributing a large copyrighted codebase.
+A later review of the supplied `analysis/decrypt_hek.py` made those format details explicit and produced a [public research decoder with synthetic tests](tools/hek/README.md). It accepts a locally supplied key and includes no application key, protected bundled assets, or decrypted commercial source. Header bytes five through seven are skipped; their meaning is not established by that implementation.
+
+The public adaptation was checked against fixed synthetic XXTEA fixtures generated with a separate C encoder, optional Brotli/gzip inputs, malformed inputs, and CLI file handling. The Brotli fixture was also checked with Node's implementation. This validates the tool's format handling, **not** a new recovery from the original application artifacts. Those artifacts were not included in the supplementary tooling archive, so the earlier application-byte comparisons were not rerun in that update.
 
 Do not run unknown game JavaScript while inspecting it. Treat decompiled source and downloaded configuration as untrusted input.
 
@@ -71,8 +73,12 @@ Do not report "every player", "always", "fraud", or "criminal" based solely on a
 
 ## Tooling and authorship
 
-Reverse engineering was performed with AI assistance (ChatGPT/Daybreak), static code inspection, runtime captures and checksum comparison. AI-generated analysis is not itself evidence. Findings are attributed to specific files, code paths and corroboration checks, and must remain open to correction.
+Reverse engineering was performed with AI assistance (ChatGPT/Daybreak), static code inspection, runtime captures and checksum comparison. Codex assisted the later supplementary-tool review, synthetic decoder validation, and documentation updates. AI-generated analysis is not itself evidence. Findings are attributed to specific files, code paths and corroboration checks, and must remain open to correction.
 
 ## Supplemental Ghidra scripts
 
 The [exploratory Ghidra Java scripts](tools/ghidra/README.md) document an early, build-specific investigation of the Cocos native loader and HEK-adjacent callbacks. These scripts are **not** the decoder used to validate the recovered JavaScript and do not independently establish any gameplay-related finding. They are included to document the analysis approach and are not claimed to have been compatibility-tested for public release.
+
+## Supplementary capture-script review
+
+The [review of 36 supplied analysis source files](evidence/analysis-tooling.md) records native loader/evaluator hooks, capture filters and size limits, process-modifying probes, and an intended Android version-testing loop. These were inspected as source, not executed against a device in this update. A version named in a test script is not a successfully tested version, and the script's native-code comparison does not establish compatibility at the different evaluator-hook location. This supplementary material does not expand the report's verified application coverage.

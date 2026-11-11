@@ -19,6 +19,11 @@ This is a study of **implemented and captured client-side mechanisms**, not a su
 - Whether each model feature was used for a specific inference in a particular player session.
 - Developer intent outside the intent implied by the mechanics' actual conditionals and names.
 - Any conclusion about unlawful conduct in a specific jurisdiction.
+- Successful testing of every Android version named in the supplementary scripts. Those scripts contain no per-version results; their native-code fingerprint check also does not establish compatibility at the separate evaluator-hook location.
+
+## Supplementary-tooling scope
+
+The [Daybreak script review](evidence/analysis-tooling.md) adds methodology details, not new gameplay evidence. Fixed offsets, assumed register/string layouts, filtering and dump limits constrain what the collectors could capture. Some exploratory scripts modify the process; source presence does not show whether they were used in an earlier session. The [public HEK decoder](tools/hek/README.md) passed synthetic tests, but was not rerun against the primary application artifacts during this update.
 
 ## Language discipline
 
