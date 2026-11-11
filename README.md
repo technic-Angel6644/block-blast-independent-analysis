@@ -25,13 +25,14 @@ The analysis used three locally retained source artifacts (not distributed in th
 - An iOS recovery archive containing decoded embedded assets and separately retrieved remote JavaScript modules.
 - An Android **10.8.1** runtime/recovery archive containing APK splits, loader return captures, and instrumentation logs.
 
-See [evidence/hashes.sha256](evidence/hashes.sha256) and [evidence/source-map.md](evidence/source-map.md) for exact source names, sizes, SHA-256 checksums, and classifications.
+See [evidence/hashes.sha256](evidence/hashes.sha256), [evidence/internal-hashes.tsv](evidence/internal-hashes.tsv), [evidence/source-map.md](evidence/source-map.md), [limited decisive excerpts](evidence/code-excerpts.md), and [IPA integrity checks](evidence/signature-verification.md) for source names, sizes, SHA-256 checksums, and classifications.
 
 **Provenance distinction:** The iOS IPA embeds the *registry references* for reward-harvest modules. The recovered implementations themselves were fetched from remotely hosted resources during the later investigation. The IPA's 7.5.1 version metadata must not be used by itself to date those CDN payloads to the original release.
 
 ## Read the analysis
 
 - [Rewarded-ad-conditioned death selection](findings/rewarded-ad-death.md)
+- [Lethal-piece selection versus actual impossible hands](findings/lethal-piece-algorithms.md)
 - [Variants and additional difficulty controls](findings/variants-and-difficulty.md)
 - [Revive control and experimental systems](findings/revives-and-experiments.md)
 - [Player modeling and advertising features](findings/player-profiling.md)
