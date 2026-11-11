@@ -11,6 +11,8 @@ Local artifacts inspected for this report include:
 - com.blockpuzzle.us.ios_7.5.1_und3fined.ipa
 - ios751.tar.gz
 - android1081.tar.gz
+- android10.tar(1).gz
+- 15.tar.gz (supplementary Codex session history)
 
 The archives are not uploaded publicly. Their hashes and selected internal object hashes are published under evidence/.
 
@@ -36,7 +38,11 @@ The approach was checked by comparing independently decoded bytes with known run
 
 A later review of the supplied `analysis/decrypt_hek.py` made those format details explicit and produced a [public research decoder with synthetic tests](tools/hek/README.md). It accepts a locally supplied key and includes no application key, protected bundled assets, or decrypted commercial source. Header bytes five through seven are skipped; their meaning is not established by that implementation.
 
-The public adaptation was checked against fixed synthetic XXTEA fixtures generated with a separate C encoder, optional Brotli/gzip inputs, malformed inputs, and CLI file handling. The Brotli fixture was also checked with Node's implementation. This validates the tool's format handling, **not** a new recovery from the original application artifacts. Those artifacts were not included in the supplementary tooling archive, so the earlier application-byte comparisons were not rerun in that update.
+The public adaptation was initially checked against fixed synthetic XXTEA fixtures generated with a separate C encoder, optional Brotli/gzip inputs, malformed inputs, and CLI file handling. The Brotli fixture was also checked with Node's implementation.
+
+With the later-supplied Android archive, decoding was also repeated on actual retained assets. Three APK-embedded settings files match their corresponding evaluator captures exactly. The encrypted 700f5 standard reward-harvest module matches the retained decoded source and identical captures from four labeled runs. The Type 03 bundle configuration decodes to the same JSON object as its retained decoded counterpart. These checks, package-manifest identities, and version-provenance limits are documented in [the Android verification](findings/android-multiversion.md). The original iOS IPA and separate Android 10.8.1 archive were not re-examined in that update.
+
+Retained SQLite state was inspected through a read-only connection to a working copy with its WAL present. The relevant cached feature entry was reported as **stored configuration**, not an authenticated server response or proof that a gameplay branch completed. Raw account/device data and server/request identifiers remain private.
 
 Do not run unknown game JavaScript while inspecting it. Treat decompiled source and downloaded configuration as untrusted input.
 
@@ -73,7 +79,7 @@ Do not report "every player", "always", "fraud", or "criminal" based solely on a
 
 ## Tooling and authorship
 
-Reverse engineering was performed with AI assistance (ChatGPT/Daybreak), static code inspection, runtime captures and checksum comparison. Codex assisted the later supplementary-tool review, synthetic decoder validation, and documentation updates. AI-generated analysis is not itself evidence. Findings are attributed to specific files, code paths and corroboration checks, and must remain open to correction.
+Reverse engineering was performed with AI assistance (ChatGPT/Daybreak and Codex), static code inspection, runtime captures and checksum comparison. The [supplied Codex session](evidence/session-review.md) records earlier recovery/comparison work; Codex also assisted the supplementary-tool review, decoder validation, and documentation updates. Selected recorded tool results were checked against the supplied artifact bytes. AI-generated narrative and unverified transcript timestamps are not themselves evidence of application behavior or historical distribution. Findings remain open to correction.
 
 ## Supplemental Ghidra scripts
 
@@ -81,4 +87,4 @@ The [exploratory Ghidra Java scripts](tools/ghidra/README.md) document an early,
 
 ## Supplementary capture-script review
 
-The [review of 36 supplied analysis source files](evidence/analysis-tooling.md) records native loader/evaluator hooks, capture filters and size limits, process-modifying probes, and an intended Android version-testing loop. These were inspected as source, not executed against a device in this update. A version named in a test script is not a successfully tested version, and the script's native-code comparison does not establish compatibility at the different evaluator-hook location. This supplementary material does not expand the report's verified application coverage.
+The [review of 36 supplied analysis source files](evidence/analysis-tooling.md) records native loader/evaluator hooks, capture filters and size limits, process-modifying probes, and an intended Android version-testing loop. These were inspected as source, not newly executed against a device. A version named in a test script is not a successfully tested version, and the script's native-code comparison does not establish compatibility at the different evaluator-hook location. The later [retained-capture verification](findings/android-multiversion.md) supplies additional evidence separately from the script's intended coverage.

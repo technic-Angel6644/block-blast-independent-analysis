@@ -9,6 +9,8 @@ A recovered iOS CDN bundle named **RewardHighValueAdHarvestTrait** contains a di
 
 The bundle is *not* embedded as plaintext in the IPA. An embedded settings registry references its bundle ID, **ff35e**; the implementation was obtained separately from the application's remote-module infrastructure. Treat the code, the local registry reference, and evidence of historical distribution as distinct items.
 
+The additional [Android multi-version archive](android-multiversion.md) supplies the standard Android 700f5 source directly in four identical evaluator captures, each 15,616 bytes with SHA-256 f94a5d54d7f6ab0af097f408bda09b091e7767b17749f8ba828b41b638b330ad. Independently decoding the retained encrypted module reproduces those bytes. A single eCPM-normalization expression accounts for the exact source difference to the published iOS hash; the decision logic described below otherwise matches.
+
 ## Conditions in the recovered implementation
 
 The relevant method bodies in the recovered source are:
@@ -45,6 +47,8 @@ IF qualifying revive succeeds:
 ~~~
 
 The 500-point value is a **default**, not an immutable rule; the trait reads configurable properties. The last-ad comparison requires a valid positive reference value. Selection may also be vetoed or replaced later in the game's algorithm pipeline.
+
+The newly inspected Android client-state snapshot contains a `RewardHighValueAdHarvest` feature entry with `scoreDeltaStep` **1,000**, rather than the source default of 500. This is a retained configuration observation, not proof that those properties were applied in a completed death-selection event. The separately configured `minGameDurationSeconds` value of 420 is not read by the examined standard `shouldTriggerDeath()` / `canTrigger()` path and must not be described as a verified duration gate. See [the configuration evidence and its limits](android-multiversion.md).
 
 ## What the implementation establishes
 

@@ -3,8 +3,10 @@
 
 Usage:
     python3 tools/verify_hashes.py --root /path/to/private/evidence
+    python3 tools/verify_hashes.py --root /path/to/private/evidence --archive 'android10.tar(1).gz'
 
-The --root folder should contain the three files named in evidence/hashes.sha256.
+The --root folder should contain the files named in evidence/hashes.sha256.
+Repeat --archive to verify selected available archives; omit it to check all.
 This script uses only the Python standard library. It never executes game code.
 """
 import argparse
@@ -50,10 +52,17 @@ def expected_members():
             yield row["archive"], row["member"], row["sha256"], int(row["size_bytes"])
 
 
-def run(evidence_root):
+def run(evidence_root, selected_archives=None):
     failed = 0
     archives_ok = set()
+    if selected_archives is not None:
+        selected_archives = set(selected_archives)
+        unknown = selected_archives - {name for name, _ in expected_archives()}
+        if unknown:
+            raise ValueError(f"unknown archive selection: {', '.join(sorted(unknown))}")
     for name, expected_hash in expected_archives():
+        if selected_archives is not None and name not in selected_archives:
+            continue
         path = evidence_root / name
         if not path.is_file():
             print(f"MISSING  {name}")
@@ -70,6 +79,8 @@ def run(evidence_root):
 
     grouped = {}
     for name, member, digest, size in expected_members():
+        if selected_archives is not None and name not in selected_archives:
+            continue
         grouped.setdefault(name, []).append((member, digest, size))
 
     for name, members in grouped.items():
@@ -109,5 +120,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, required=True,
                         help="Private directory containing IPA and tar.gz evidence")
+    parser.add_argument("--archive", action="append", choices=sorted(name for name, _ in expected_archives()),
+                        help="Verify only this listed archive; may be repeated")
     args = parser.parse_args()
-    sys.exit(run(args.root.expanduser().resolve()))
+    sys.exit(run(args.root.expanduser().resolve(), args.archive))

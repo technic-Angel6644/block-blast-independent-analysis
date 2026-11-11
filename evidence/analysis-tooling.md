@@ -9,7 +9,7 @@ The supplied `analysis.tar(1).gz` contains 36 source files and one compiled Pyth
 | `analysis.tar(1).gz`, as received | 23,649 | `c4f845910839100ae119e0e0d8d85a6e75eb6b61c06a6feb6cdee919be3335b8` |
 | `analysis/decrypt_hek.py`, inside that archive | 3,472 | `0eacc51c3f1caa1d46cc0042d6d1bc032fb28d0bb36a631aeaf6d3a6c9b43308` |
 
-These hashes identify the supplied research scripts. They do not authenticate application binaries, prove that any script ran successfully, or establish the chronology of earlier research. This supplementary archive is separate from the three primary artifacts in `hashes.sha256`.
+These hashes identify the supplied research scripts. They do not authenticate application binaries, prove that any script ran successfully, or establish the chronology of earlier research. This tooling archive is identified separately from the application/recovery files and session history in `hashes.sha256`.
 
 ## What was reviewed
 
@@ -42,7 +42,7 @@ The script includes `adb shell pm clear com.block.juggle`, so rerunning it would
 
 The fingerprint guard compares a window around module offset `0xa0b374`; the subsequent evaluator hook targets `0xa0a87c`. An unchanged window at the former location does **not** prove that the latter hook or its assumed register layout is compatible. The script's source therefore establishes intended precautions, not validated cross-version instrumentation.
 
-No per-version result logs, package files, or captured payloads accompany this archive. The version list and the reference path must not expand the report's verified version coverage. The separately mentioned multi-version Android archive was not included in this update.
+No per-version results accompany the tooling archive itself. At the initial tooling-only review, the separate multi-version archive was unavailable. It has since been supplied and [verified independently from the scripts](../findings/android-multiversion.md): it contains runs labeled 10.7.2, 10.7.3, 10.7.4 and 10.8.0, with APK identities verified for the latter three. This does not supply results for every version named in the script, particularly 10.8.2 and 10.8.5.
 
 ## Capture and intervention limits
 
@@ -52,4 +52,4 @@ The presence of a trait name in a captured buffer or file-read trace is weaker e
 
 `inject_js_introspection.js`, `bypass_bugsnag.js` and `patch_bugsnag_native.js` change the instrumented process. Any future result obtained with them should record those changes and be compared with an unmodified session where possible. Their presence here does not show that they were used for an earlier capture.
 
-The report's existing gameplay findings remain unchanged. This archive improves the description of the recovery workflow and its limitations.
+The tooling archive improves the description of the recovery workflow and its limitations. The separate [Android recovery verification](../findings/android-multiversion.md) and [Codex session review](session-review.md) document the additional supplied evidence without treating source scripts as proof of their own successful execution.

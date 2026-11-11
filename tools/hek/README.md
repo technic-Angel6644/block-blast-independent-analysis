@@ -38,4 +38,8 @@ python3 -m unittest discover -s tools/hek -p 'test_*.py' -v
 
 [test_decode_hek.py](test_decode_hek.py) uses only synthetic payloads and a synthetic key. Fixed XXTEA fixtures were produced with a separate C encoder, covering several padding lengths. The Brotli fixture was also decoded with Node's `zlib` implementation. Tests cover both HEK variants, compressed and uncompressed paths, malformed wrappers, declared-size errors, key length, and output overwrite refusal.
 
-The suite passed during this update using Python 3.13.5 and Brotli 1.1.0. These checks validate the public tool's format handling; **the adaptation has not been rerun against the original IPA, APKs, or retained runtime buffers during this update**, because those artifacts were not part of the supplied tooling archive. Earlier application-byte comparisons remain separately reported in [the methodology](../../methodology.md).
+The synthetic suite passed using Python 3.13.5 and Brotli 1.1.0 during the initial tooling update.
+
+With the additional Android archive supplied on 12 November 2026, the public decoder was also checked against real retained assets. Three APK-embedded settings files decode byte-for-byte to their evaluator captures. The encrypted 700f5 standard reward-harvest module decodes to the retained source and all four matching trait captures. Its Type 03 bundle configuration decodes to the same parsed JSON object as the retained counterpart. The [Android verification report](../../findings/android-multiversion.md) identifies those files and hashes and distinguishes package metadata from later runtime resources.
+
+These checks validate decoding and source identity, not final gameplay execution. The original iOS IPA and separate Android 10.8.1 archive were not re-examined during this supplementary update; their earlier checks remain separately reported in [the methodology](../../methodology.md).

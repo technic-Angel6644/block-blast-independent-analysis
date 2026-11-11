@@ -16,14 +16,19 @@ This repository documents an independent, AI-assisted **replication and extensio
 | Other ad-value paths exist | Android 10.8.1 includes interstitial-eCPM-driven difficulty/offer modules | The lethal paths are configurable and need not be the default |
 | Revive decisions can be modified | Android 10.8.1 contains an AdPlusMinusStrategyTrait that alters revive eligibility under configurable conditions | Shipped capability is not a measurement of actual activation |
 | Modeling infrastructure spans platforms | iOS and Android contain modules/definitions for player and advertising features, difficulty, and experiments | Feature availability alone does not prove every feature influences every decision |
+| The standard Android source matches across four retained runs | Identical 15,616-byte evaluator captures in runs labeled 10.7.2, 10.7.3, 10.7.4 and 10.8.0; independent decoding reproduces the source | Three package versions are verified from retained APKs; 10.7.2 has weaker version provenance |
+| A retained client configuration names the harvest feature | A private SQLite snapshot lists RewardHighValueAdHarvest with scoreDeltaStep 1,000 | Stored configuration is not proof that a death-selection branch completed |
 
 ## Evidence and sources
 
-The analysis used three locally retained source artifacts (not distributed in this repository):
+The application-code findings draw on these privately retained source artifacts (not distributed in this repository):
 
 - An examined iOS IPA labeled **Block Blast! 7.5.1 / build 7512**, bundle **com.blockpuzzle.us.ios**.
 - An iOS recovery archive containing decoded embedded assets and separately retrieved remote JavaScript modules.
 - An Android **10.8.1** runtime/recovery archive containing APK splits, loader return captures, and instrumentation logs.
+- An additional Android recovery archive with runs labeled **10.7.2, 10.7.3, 10.7.4 and 10.8.0**; the latter three have retained APKs whose manifests verify their versions.
+
+A separate supplied [Codex session record](evidence/session-review.md) documents earlier command/result checks. It is supplementary workflow history from the same investigation, not another independent replication.
 
 See [evidence/hashes.sha256](evidence/hashes.sha256), [evidence/internal-hashes.tsv](evidence/internal-hashes.tsv), [evidence/source-map.md](evidence/source-map.md), [limited decisive excerpts](evidence/code-excerpts.md), and [IPA integrity checks](evidence/signature-verification.md) for source names, sizes, SHA-256 checksums, and classifications.
 
@@ -37,6 +42,7 @@ See [evidence/hashes.sha256](evidence/hashes.sha256), [evidence/internal-hashes.
 - [Revive control and experimental systems](findings/revives-and-experiments.md)
 - [Player modeling and advertising features](findings/player-profiling.md)
 - [iOS / Android comparison](findings/cross-platform-comparison.md)
+- [Android multi-version captures and retained feature configuration](findings/android-multiversion.md)
 - [Methodology](methodology.md), [limitations](limitations.md), [provenance notes](evidence/provenance.md), and [original references](references.md)
 
 ## What this publication does and does not say
@@ -51,9 +57,9 @@ The underlying IPAs/APKs, decrypted proprietary source, and raw logs are **not d
 
 A researcher with a lawfully obtained copy of the relevant artifacts can compare SHA-256 values using [tools/verify_hashes.py](tools/verify_hashes.py) and then locate the methods listed in the source map. The method descriptions deliberately distinguish **embedded files**, **live runtime captures**, and **later-retrieved CDN content**. Optional [Ghidra exploration scripts](tools/ghidra/README.md) are retained as supplemental methodology, not primary evidence.
 
-A [HEK decoder and synthetic tests](tools/hek/README.md) provide the byte-format implementation with a caller-supplied key. The [supplementary Daybreak tooling review](evidence/analysis-tooling.md) records the supplied scripts' hashes, capture limitations, and intended Android version loop. The new tests use synthetic inputs; no additional application versions or gameplay outcomes were verified in that update.
+A [HEK decoder and synthetic tests](tools/hek/README.md) provide the byte-format implementation with a caller-supplied key. Its output has now also been checked against actual retained Android assets: three embedded settings files match their runtime captures, and the encrypted standard harvest module decodes to all four retained trait captures. See [the multi-version verification](findings/android-multiversion.md). The [supplementary Daybreak tooling review](evidence/analysis-tooling.md) records the scripts' capture limitations and intended test loop.
 
-This investigation was assisted by ChatGPT/Daybreak for reverse engineering and inspection. Codex assisted the supplementary script review, synthetic decoder validation, and repository documentation. Reported gameplay findings were cross-checked against the files listed in the evidence map during the earlier investigation. The original [Ayoships investigation](https://ayoships.com/breakdowns/block-blast) motivated this independently reproduced analysis; it is not a claim of first discovery. See [references](references.md).
+This investigation was assisted by ChatGPT/Daybreak and Codex for reverse engineering, inspection, verification, and documentation. The [supplied session record](evidence/session-review.md) documents Codex participation in the earlier recovery/comparison work as well as the later tooling and repository review. Findings are supported by the source files and checks described in the evidence map. The original [Ayoships investigation](https://ayoships.com/breakdowns/block-blast) motivated this independently reproduced analysis; it is not a claim of first discovery. See [references](references.md).
 
 ## Attribution and contact
 
@@ -61,4 +67,4 @@ This is a separate reproduction of earlier Block Blast reverse-engineering alleg
 
 If correcting an error, open a GitHub issue with the relevant source path, checksum, expected behavior, and reproduction details. Please do not post copyrighted game bundles or player-identifying logs in issues.
 
-**Status:** initial technical publication, 11 November 2026. Findings and limitations may be refined as additional runtime evidence becomes available.
+**Status:** initial technical publication, 11 November 2026; supplementary Android and session verification added 12 November 2026. Final-board outcomes and population-wide activation remain unmeasured.
