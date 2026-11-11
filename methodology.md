@@ -72,3 +72,7 @@ Do not report "every player", "always", "fraud", or "criminal" based solely on a
 ## Tooling and authorship
 
 Reverse engineering was performed with AI assistance (ChatGPT/Daybreak), static code inspection, runtime captures and checksum comparison. AI-generated analysis is not itself evidence. Findings are attributed to specific files, code paths and corroboration checks, and must remain open to correction.
+
+## Supplemental Ghidra scripts
+
+The [exploratory Ghidra Java scripts](tools/ghidra/README.md) document an early, build-specific investigation of the Cocos native loader and HEK-adjacent callbacks. These scripts are **not** the decoder used to validate the recovered JavaScript and do not independently establish any gameplay-related finding. They are included to document the analysis approach and are not claimed to have been compatibility-tested for public release.
