@@ -1,6 +1,6 @@
 # Block Blast: independent analysis of advertising-linked gameplay controls
 
-This repository documents an independent, AI-assisted replication of reverse-engineering findings concerning **Block Blast!**, with a focus on algorithmic piece selection, advertising value, rewarded revives, and player-level modeling.
+This repository documents an independent, AI-assisted **replication and extension** of reverse-engineering findings concerning **Block Blast!**, with a focus on algorithmic piece selection, advertising value, rewarded revives, and player-level modeling. The initial public investigation was published by **Ayo Omolewa (Ayoships)** on 15 October 2026: [original report](https://ayoships.com/breakdowns/block-blast). This project does not claim to have discovered the mechanism first.
 
 **Main result:** Recovered JavaScript includes a path that, when its conditions are satisfied, selects the game's **ZHI_SI_TI** (致死题; approximately "lethal puzzle") offer algorithm based partly on the value of a loaded rewarded advertisement. This is not merely an ad event being logged next to a difficulty event: the advertised value participates in the gameplay decision. Other recovered traits use different criteria to prioritize the same algorithm.
 
@@ -36,7 +36,7 @@ See [evidence/hashes.sha256](evidence/hashes.sha256) and [evidence/source-map.md
 - [Revive control and experimental systems](findings/revives-and-experiments.md)
 - [Player modeling and advertising features](findings/player-profiling.md)
 - [iOS / Android comparison](findings/cross-platform-comparison.md)
-- [Methodology](methodology.md), [limitations](limitations.md), and [provenance notes](evidence/provenance.md)
+- [Methodology](methodology.md), [limitations](limitations.md), [provenance notes](evidence/provenance.md), and [original references](references.md)
 
 ## What this publication does and does not say
 
@@ -44,13 +44,13 @@ The code-level finding is that the product contains rules that can condition *se
 
 The source captures **do not**, on their own, prove: which configuration was assigned to any particular ordinary player; how often a chosen offer was finally used; the company's stated rationale; illegality or criminal conduct; or that all tested remote modules were simultaneously active.
 
-The underlying IPAs/APKs, decrypted proprietary source, and raw logs are retained privately. This repository contains independently written descriptions, limited source identifiers, hashes, and checking tools; it is not a mirror of the game's source code.
+The underlying IPAs/APKs, decrypted proprietary source, and raw logs are **not distributed** with this public repository. This repository contains independently written descriptions, limited source identifiers, hashes, and checking tools; it is not a mirror of the game's source code.
 
 ## Reproducibility
 
 A researcher with a lawfully obtained copy of the relevant artifacts can compare SHA-256 values using [tools/verify_hashes.py](tools/verify_hashes.py) and then locate the methods listed in the source map. The method descriptions deliberately distinguish **embedded files**, **live runtime captures**, and **later-retrieved CDN content**.
 
-This investigation was assisted by ChatGPT/Daybreak for reverse engineering and inspection. Reported findings were cross-checked against the files listed in the evidence map. The original public investigation motivated this independent replication; it was not a claim of first discovery.
+This investigation was assisted by ChatGPT/Daybreak for reverse engineering and inspection. Reported findings were cross-checked against the files listed in the evidence map. The original [Ayoships investigation](https://ayoships.com/breakdowns/block-blast) motivated this independently reproduced analysis; it is not a claim of first discovery. See [references](references.md).
 
 ## Attribution and contact
 
