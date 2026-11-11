@@ -218,3 +218,51 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Research evidence: keep proprietary and identifying data out of the repository
+# NOTE: .gitignore does not remove files already committed to Git history.
+*.ipa
+*.apk
+*.xapk
+*.aab
+*.apks
+*.aar
+*.dex
+*.dmp
+*.core
+*.har
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+*.zip
+*.bin
+*.log
+*.pcap
+*.pcapng
+*.sqlite
+*.db
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.mobileprovision
+*.pem
+*.key
+*.cer
+*.crt
+*.der
+*.env.*
+raw/
+private/
+evidence-private/
+captures/
+decrypted/
+type01-decoded/
+type03-decoded/
+remote-decoded/
+runtime/
+gamecaches/
+**/Payload/
+**/SC_Info/
